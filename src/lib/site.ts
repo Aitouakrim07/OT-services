@@ -4,9 +4,9 @@ export const site = {
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
   linkedin: process.env.NEXT_PUBLIC_LINKEDIN_URL || "",
   github: process.env.NEXT_PUBLIC_GITHUB_URL || "",
-  title: "Othman Ait Ouakrim — Freelance Backend & DevOps à Toulouse",
+  title: "Solutions web pour petites entreprises à Toulouse | Ouakrim IT Services",
   description:
-    "Développement backend, DevOps, cloud et automatisation à Toulouse. Othman Ait Ouakrim accompagne startups, PME et agences pour développer, déployer et fiabiliser leurs applications.",
+    "Sites professionnels, prise de rendez-vous, demandes de devis et outils web sur mesure pour petites entreprises. Othman Ait Ouakrim, freelance à Toulouse et partout en France.",
 };
 export const legal = {
   siren: process.env.LEGAL_SIREN || "[SIREN À COMPLÉTER]",
@@ -16,10 +16,13 @@ export const legal = {
     process.env.LEGAL_PUBLICATION_DIRECTOR || "[RESPONSABLE DE PUBLICATION À COMPLÉTER]",
 };
 export const needs = [
-  "Développement Web / API",
-  "Développement Backend",
-  "DevOps",
-  "Infrastructure / Cloud",
-  "Automatisation",
+  "Créer ou refaire mon site",
+  "Obtenir plus de demandes",
+  "Réservation / prise de rendez-vous",
+  "Demandes de devis",
+  "Espace client",
+  "Automatiser une tâche",
+  "Créer un outil interne",
   "Autre",
+  "Je ne sais pas encore",
 ] as const;

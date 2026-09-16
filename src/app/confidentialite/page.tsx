@@ -18,7 +18,7 @@ export default function Privacy() {
       </p>
       <h2>Formulaire de contact</h2>
       <p>
-        Le formulaire recueille votre nom, email, entreprise si renseignée, type
+        Le formulaire recueille votre nom, email, entreprise et téléphone si renseignés, type
         de besoin et message. Ces données servent à répondre à votre demande et
         à préparer un éventuel échange professionnel. Évitez de transmettre des
         données sensibles.

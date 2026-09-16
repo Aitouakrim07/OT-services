@@ -48,6 +48,7 @@ export async function POST(request: Request) {
   const name = field("name"),
     email = field("email"),
     company = field("company"),
+    phone = field("phone"),
     need = field("need"),
     message = field("message");
   if (
@@ -56,12 +57,14 @@ export async function POST(request: Request) {
     email.length > 254 ||
     !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
     company.length > 150 ||
+    phone.length > 40 ||
+    (phone.length > 0 && !/^[+\d() .\-]{6,40}$/.test(phone)) ||
     !needs.some((n) => n === need) ||
-    message.length < 20 ||
+    message.length < 10 ||
     message.length > 5000
   )
     return fail(
-      "Vérifiez les champs : nom, email, type de besoin et message (20 caractères minimum).",
+      "Vérifiez les champs : nom, email, type de besoin et message (10 caractères minimum).",
       400,
     );
   const user = process.env.GMAIL_USER?.trim();
@@ -90,6 +93,7 @@ export async function POST(request: Request) {
         "Nom : " + name,
         "Email : " + email,
         "Entreprise : " + (company || "Non renseignée"),
+        "Téléphone : " + (phone || "Non renseigné"),
         "Besoin : " + need,
         "",
         message,

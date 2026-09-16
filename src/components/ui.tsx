@@ -16,31 +16,11 @@ export function ButtonLink({
     </a>
   );
 }
-export function SectionTitle({
-  label,
-  title,
-  description,
-}: {
-  label: string;
-  title: string;
-  description?: string;
-}) {
-  return (
-    <div className="section-title">
-      <div>
-        <p className="eyebrow">{label}</p>
-        <h2>{title}</h2>
-      </div>
-      {description && <p>{description}</p>}
-    </div>
-  );
-}
 export function Brand() {
   return (
     <a
       href="/#accueil"
       className="brand"
-      aria-label="OA. Ouakrim IT Services, accueil"
     >
       <span className="monogram">
         OA<span>.</span>

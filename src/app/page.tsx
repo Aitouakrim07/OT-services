@@ -1,428 +1,47 @@
-import {
-  Braces,
-  Workflow,
-  Server,
-  ShieldCheck,
-  Terminal,
-  Database,
-  Check,
-  Link2,
-  Code2,
-  Mail,
-  ArrowUpRight,
-  Layers3,
-} from "lucide-react";
-import { SectionTitle, ButtonLink } from "@/components/ui";
-import { ContactForm } from "@/components/contact-form";
-import { ProjectVisual } from "@/components/project-visual";
-import { site } from "@/lib/site";
+import { ArrowRight, CalendarDays, Check, ClipboardList, FileText, LayoutDashboard, MailCheck, MessageSquareText, MonitorSmartphone, Sparkles, UserRoundCheck, WandSparkles } from 'lucide-react';
+import { ButtonLink } from '@/components/ui';
+import { ContactForm } from '@/components/contact-form';
+import { site } from '@/lib/site';
 
-const services = [
-  {
-    icon: Braces,
-    title: "Backend",
-    text: "API, données et intégrations pour faire avancer votre produit.",
-    benefit: "Une base fiable, prête à évoluer.",
-    flow: ["API", "Métier", "Données"],
-  },
-  {
-    icon: Workflow,
-    title: "DevOps & CI/CD",
-    text: "Tests et déploiements automatisés, du dépôt à la production.",
-    benefit: "Moins de manipulations à chaque livraison.",
-    flow: ["Code", "Tests", "Déploiement"],
-  },
-  {
-    icon: Server,
-    title: "Cloud & Infrastructure",
-    text: "Des environnements Linux configurés et provisionnés par le code.",
-    benefit: "Une infrastructure reproductible.",
-    flow: ["Provisionner", "Configurer", "Exploiter"],
-  },
-  {
-    icon: ShieldCheck,
-    title: "Automatisation & accès",
-    text: "Des services connectés, des tâches automatisées et des rôles définis.",
-    benefit: "Des opérations et des accès maîtrisés.",
-    flow: ["Connecter", "Automatiser", "Sécuriser"],
-  },
+const audiences=['Restaurants','Cabinets professionnels','Immobilier','Artisans','Services locaux','Conseil','Recrutement','Formation'];
+const offers=[
+ {n:'01',icon:MonitorSmartphone,title:'Présence en ligne',description:'Un site clair, soigné et facile à utiliser sur mobile. Vos visiteurs comprennent votre activité et savent comment vous contacter.',example:'Présenter votre activité · inspirer confiance · être trouvé localement'},
+ {n:'02',icon:CalendarDays,title:'Demandes & rendez-vous',description:'Un parcours qui permet de réserver, demander un devis ou préciser son besoin avant le premier échange.',example:'Réservation · prise de rendez-vous · demandes mieux qualifiées'},
+ {n:'03',icon:LayoutDashboard,title:'Espaces & outils métier',description:'Un espace client ou un outil interne simple pour suivre les dossiers, organiser les demandes et retrouver l’information.',example:'Suivi de dossiers · espace client · tableau de bord'},
+ {n:'04',icon:WandSparkles,title:'Automatisation',description:'Les confirmations, notifications et tâches répétitives peuvent se faire automatiquement, sans complexifier votre travail.',example:'Moins de saisies · informations centralisées · suivi simplifié'},
 ];
-const projects = [
-  {
-    type: "edge" as const,
-    context: "MY IT CREW",
-    title: "Une plateforme pour piloter l’edge.",
-    summary:
-      "Gestion des uCPE, déploiement d’applications et accès distant sécurisé.",
-    tags: ["Node.js", "K3s / Helm", "Keycloak"],
-    detail:
-      "Plateforme Next.js et backend Node.js avec PostgreSQL/Prisma. Orchestration K3s et Helm, terminal WebSocket, RBAC Keycloak, RabbitMQ, microservice Go et CI/CD GitHub Actions sur Linux.",
-  },
-  {
-    type: "recruitment" as const,
-    context: "ELYTRALUXE",
-    title: "Le recrutement, dans un même outil.",
-    summary:
-      "Candidats, recruteurs et administrateurs réunis autour des candidatures.",
-    tags: ["React / Node.js", "PostgreSQL", "RBAC"],
-    detail:
-      "API Node.js et interface React pour les candidatures et CV. Données PostgreSQL/Prisma, authentification Keycloak et gestion des rôles adaptés aux différents utilisateurs.",
-  },
-  {
-    type: "spark" as const,
-    context: "PROJET INFRASTRUCTURE",
-    title: "Un cluster Spark créé par le code.",
-    summary:
-      "Machines virtuelles et configuration Linux automatisées, sans répétition manuelle.",
-    tags: ["Terraform", "Ansible", "Linux"],
-    detail:
-      "Terraform provisionne les machines virtuelles sur QEMU/KVM. Ansible configure le cluster Apache Spark sous Ubuntu Server, avec SSH et firewall.",
-  },
+const situations=[
+ 'Vos clients doivent vous appeler pour presque tout.',
+ 'Les demandes reçues par email manquent d’informations.',
+ 'Votre site présente votre activité, mais génère peu d’actions.',
+ 'Vous jonglez entre plusieurs fichiers pour suivre les demandes.',
+ 'Vous redemandez souvent les mêmes renseignements.',
+ 'Vos clients ne savent pas où en est leur dossier.',
 ];
-const stacks = [
-  [
-    "Backend",
-    "Node.js · TypeScript · Go",
-    "Python · Next.js · React · API REST · WebSocket",
-  ],
-  [
-    "Infrastructure",
-    "Linux · Terraform · Ansible",
-    "Ubuntu Server · QEMU/KVM · TCP/IP",
-  ],
-  ["DevOps", "Docker · Kubernetes · CI/CD", "K3s · Helm · GitHub Actions"],
-  ["Data", "PostgreSQL · Prisma", "RabbitMQ"],
-  ["Security", "Keycloak · OIDC · RBAC", "JWT · SSH · iptables"],
-  ["Tools", "Git · GitHub", "FRP"],
+const steps=[
+ ['01','On échange','Je comprends votre activité et ce qui vous fait perdre du temps.'],
+ ['02','Je propose','Je recommande une solution utile, avec un périmètre clair.'],
+ ['03','Je construis','Je développe et vous montre l’avancement régulièrement.'],
+ ['04','On met en ligne','Je prépare la mise en service et reste disponible pour la suite.'],
 ];
-function Architecture() {
-  return (
-    <div className="architecture visual-hero">
-      <div className="terminal-bar">
-        <Terminal size={16} />
-        <span>du code à la production</span>
-        <span className="architecture-tag">BACKEND + DEVOPS</span>
-      </div>
-      <div className="arch-content">
-        <div className="architecture-heading">
-          <span>01 → 03</span>
-          <p>
-            Un produit.
-            <br />
-            Une architecture cohérente.
-          </p>
-        </div>
-        <div className="arch-node wide">
-          <Braces />
-          <div>
-            <strong>Votre application</strong>
-            <span>API & logique métier</span>
-          </div>
-          <Code2 className="node-decoration" />
-        </div>
-        <div className="connector" />
-        <div className="arch-split">
-          <div className="arch-node">
-            <ShieldCheck />
-            <div>
-              <strong>Accès</strong>
-              <span>Identités & rôles</span>
-            </div>
-          </div>
-          <div className="arch-node">
-            <Database />
-            <div>
-              <strong>Données</strong>
-              <span>PostgreSQL</span>
-            </div>
-          </div>
-        </div>
-        <div className="connector" />
-        <div className="arch-node wide accent">
-          <Layers3 />
-          <div>
-            <strong>Production</strong>
-            <span>Infrastructure & déploiement</span>
-          </div>
-          <Server className="node-decoration" />
-        </div>
-        <div className="delivery-track">
-          <span>Code</span>
-          <i />
-          <span>Tests</span>
-          <i />
-          <span>Déploiement</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-export default function Home() {
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: site.name,
-    description: site.description,
-    areaServed: { "@type": "City", name: "Toulouse" },
-    founder: {
-      "@type": "Person",
-      name: site.owner,
-      jobTitle: "Freelance Backend & DevOps",
-    },
-    ...(site.email ? { email: site.email } : {}),
-  };
-  return (
-    <main id="main">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
-        }}
-      />
-      <section id="accueil" className="hero container">
-        <div className="hero-copy">
-          <p className="eyebrow">
-            <span className="eyebrow-line" />
-            FREELANCE BACKEND & DEVOPS · TOULOUSE
-          </p>
-          <h1>
-            Votre backend.
-            <br />
-            <span>
-              Prêt pour
-              <br />
-              la production.
-            </span>
-          </h1>
-          <p className="hero-intro">
-            Je développe, déploie et automatise vos applications. Pour les
-            startups, PME et équipes qui veulent avancer.
-          </p>
-          <div className="cta-row">
-            <ButtonLink href="#contact">Parler de mon projet</ButtonLink>
-            <ButtonLink href="#realisations" secondary>
-              Voir les réalisations
-            </ButtonLink>
-          </div>
-          <p className="hero-signature">
-            Othman Ait Ouakrim <span>/</span> Ingénieur & freelance
-          </p>
-        </div>
-        <Architecture />
-      </section>
-      <div className="credibility">
-        <div className="container">
-          <p>
-            BACKEND <span>/</span> DEVOPS <span>/</span> CLOUD <span>/</span>{" "}
-            AUTOMATISATION
-          </p>
-          <div>Node.js · Docker · Kubernetes · PostgreSQL</div>
-        </div>
-      </div>
-      <section id="services" className="container section">
-        <SectionTitle
-          label="01 / SERVICES"
-          title="Le bon renfort, au bon endroit."
-        />
-        <div className="services-grid compact-services">
-          {services.map(({ icon: Icon, ...s }, i) => (
-            <article className="service-card" key={s.title}>
-              <div className="card-top">
-                <Icon size={28} aria-hidden="true" />
-                <span>0{i + 1}</span>
-              </div>
-              <h3>{s.title}</h3>
-              <p className="muted">{s.text}</p>
-              <div className="service-flow" aria-label="Étapes couvertes">
-                {s.flow.map((t) => (
-                  <span key={t}>{t}</span>
-                ))}
-              </div>
-              <p className="benefit">
-                <Check size={16} aria-hidden="true" />
-                {s.benefit}
-              </p>
-            </article>
-          ))}
-        </div>
-      </section>
-      <section id="realisations" className="section projects-section">
-        <div className="container">
-          <SectionTitle
-            label="02 / RÉALISATIONS"
-            title="Trois projets. Du concret."
-          />
-          <div className="projects visual-projects">
-            {projects.map((p) => (
-              <article className="project" key={p.type}>
-                <ProjectVisual type={p.type} />
-                <div className="project-info">
-                  <p className="eyebrow">{p.context}</p>
-                  <h3>{p.title}</h3>
-                  <p className="project-summary">{p.summary}</p>
-                  <div className="pills">
-                    {p.tags.map((t) => (
-                      <span key={t}>{t}</span>
-                    ))}
-                  </div>
-                  <details className="project-details">
-                    <summary>
-                      Ma contribution <span aria-hidden="true">+</span>
-                    </summary>
-                    <p>{p.detail}</p>
-                  </details>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="container section why compact-why">
-        <SectionTitle
-          label="03 / COLLABORATION"
-          title="Une vision du code à l’infrastructure."
-        />
-        <div className="why-grid">
-          {[
-            [
-              Layers3,
-              "Développer & déployer",
-              "Un interlocuteur pour relier l’application à son environnement.",
-            ],
-            [
-              Workflow,
-              "Automatiser & transmettre",
-              "Des opérations reproductibles et une documentation utile.",
-            ],
-            [
-              ShieldCheck,
-              "Maintenir & sécuriser",
-              "Du code compréhensible et des accès pensés dès le départ.",
-            ],
-          ].map(([Icon, a, b]) => {
-            const Symbol = Icon as typeof Layers3;
-            return (
-              <article key={a as string}>
-                <Symbol size={25} aria-hidden="true" />
-                <h3>{a as string}</h3>
-                <p className="muted">{b as string}</p>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-      <section id="a-propos" className="container section about compact-about">
-        <div>
-          <p className="eyebrow">04 / À PROPOS</p>
-          <h2>
-            Othman
-            <br />
-            Ait Ouakrim<span className="accent-text">.</span>
-          </h2>
-          <div className="about-bottom">Toulouse · À distance</div>
-        </div>
-        <div>
-          <p className="about-lead">
-            Le backend et l’infrastructure, avec la même attention.
-          </p>
-          <p className="muted">
-            Ingénieur en sciences du numérique, je construis des applications,
-            organise leurs accès et automatise leur déploiement. Je vous
-            accompagne sur un projet complet ou un besoin technique ciblé.
-          </p>
-          <ButtonLink href="#contact" secondary>
-            Échangeons
-          </ButtonLink>
-        </div>
-      </section>
-      <section id="technologies" className="container section stack">
-        <SectionTitle
-          label="05 / TECHNOLOGIES"
-          title="Une stack adaptée à votre projet."
-        />
-        <div className="stack-grid visual-stack">
-          {stacks.map(([a, b, c], i) => (
-            <div key={a}>
-              <span className="stack-number">0{i + 1}</span>
-              <div>
-                <h3>{a}</h3>
-                <p>{b}</p>
-                <details>
-                  <summary>Autres outils</summary>
-                  <p>{c}</p>
-                </details>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="final-cta container">
-        <div>
-          <p className="eyebrow">CONSTRUISONS LA SUITE</p>
-          <h2>
-            Un projet à lancer ?<br />
-            Un sujet à débloquer ?
-          </h2>
-        </div>
-        <ButtonLink href="#contact">Parlons-en</ButtonLink>
-      </section>
-      <section id="contact" className="container section contact">
-        <div>
-          <p className="eyebrow">06 / CONTACT</p>
-          <h2>
-            Votre projet
-            <br />
-            commence ici.
-          </h2>
-          <p className="muted">
-            Votre besoin, vos contraintes, votre échéance. Commençons par un
-            échange.
-          </p>
-          <div className="contact-links">
-            {[
-              {
-                label: "Email",
-                value: site.email,
-                icon: Mail,
-                href: site.email ? "mailto:" + site.email : "",
-              },
-              {
-                label: "LinkedIn",
-                value: site.linkedin,
-                icon: Link2,
-                href: site.linkedin,
-              },
-              {
-                label: "GitHub",
-                value: site.github,
-                icon: Code2,
-                href: site.github,
-              },
-            ].map(({ label, value, icon: Icon, href }) => (
-              <div key={label}>
-                <Icon size={19} aria-hidden="true" />
-                {value ? (
-                  <a
-                    href={href}
-                    {...(label !== "Email"
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                  >
-                    {label}
-                    <ArrowUpRight size={15} />
-                  </a>
-                ) : (
-                  <span>
-                    {label}
-                    <small>[À RENSEIGNER]</small>
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-        <ContactForm />
-      </section>
-    </main>
-  );
-}
+const strengths=[
+ ['Un seul interlocuteur','Vous échangez directement avec la personne qui conçoit et développe votre solution.'],
+ ['Juste ce qu’il faut','Pas de plateforme démesurée lorsqu’un outil simple suffit.'],
+ ['Au-delà de la page','Je peux créer les espaces, données et automatisations qui font fonctionner le site.'],
+ ['Une base solide','Ma formation d’ingénieur et mon expérience web et backend soutiennent la réalisation.'],
+];
+function Journey(){return <div className="journey" aria-label="Exemple de parcours : visiteur, demande structurée, suivi"><div className="journey-top"><span>UN SITE QUI REND SERVICE</span><span className="journey-dot"/></div><div className="journey-step"><span className="journey-icon"><UserRoundCheck size={22}/></span><div><small>01 / VOTRE VISITEUR</small><strong>Il découvre votre activité.</strong><p>Une présentation claire, sur téléphone comme sur ordinateur.</p></div></div><div className="journey-line"/><div className="journey-step featured"><span className="journey-icon"><ClipboardList size={22}/></span><div><small>02 / SA DEMANDE</small><strong>Il passe à l’action.</strong><p>Rendez-vous, devis ou formulaire adapté à votre métier.</p></div></div><div className="journey-line"/><div className="journey-step"><span className="journey-icon"><MailCheck size={22}/></span><div><small>03 / VOTRE QUOTIDIEN</small><strong>Vous recevez les bonnes informations.</strong><p>De quoi répondre plus vite et mieux vous organiser.</p></div></div><div className="journey-bottom"><Check size={17}/> Un parcours utile pour vous et vos clients</div></div>}
+function Example(){return <div className="example"><div className="example-header"><span>EXEMPLE CONCRET</span><span>DE LA VISITE À L’ACTION</span></div><div className="example-row"><span className="example-icon"><FileText size={23}/></span><div><small>UN SITE CLASSIQUE</small><strong>« Demandez un devis »</strong><p>Le client envoie un message libre. Il manque souvent des détails.</p></div></div><div className="example-divider"><ArrowRight size={18}/></div><div className="example-row active"><span className="example-icon"><ClipboardList size={23}/></span><div><small>UNE SOLUTION ADAPTÉE</small><strong>Une demande déjà structurée</strong><p>Service, adresse, photos et disponibilités : vous recevez les éléments utiles dès le départ.</p></div></div></div>}
+export default function Home(){const schema={'@context':'https://schema.org','@type':'ProfessionalService',name:site.name,description:site.description,areaServed:{'@type':'AdministrativeArea',name:'France'},founder:{'@type':'Person',name:site.owner},...(site.email?{email:site.email}:{})};return <main id="main"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema).replace(/</g,'\\u003c')}}/>
+ <section id="accueil" className="hero container"><div className="hero-copy"><p className="eyebrow"><span className="eyebrow-line"/> OUAKRIM IT SERVICES · TOULOUSE</p><h1>Un site utile.<br/><span>Une activité plus simple.</span></h1><p className="hero-intro">Je crée votre présence en ligne et les outils qui vont avec : rendez-vous, demandes de devis, espaces clients ou automatisations.</p><p className="hero-detail">Pour les petites entreprises et indépendants qui veulent mieux accueillir leurs clients et gagner du temps.</p><div className="cta-row"><ButtonLink href="#contact">Parler de votre projet</ButtonLink><ButtonLink href="#services" secondary>Découvrir les services</ButtonLink></div><p className="hero-signature">Othman Ait Ouakrim · Votre interlocuteur direct</p></div><Journey/></section>
+ <section className="audience-band"><div className="container"><p className="eyebrow">POUR LES STRUCTURES À TAILLE HUMAINE</p><div className="audience-list">{audiences.map(a=><span key={a}>{a}</span>)}</div></div></section>
+ <section id="services" className="container section"><div className="section-title"><div><p className="eyebrow">01 / CE QUE JE PEUX METTRE EN PLACE</p><h2>Du premier contact à votre organisation quotidienne.</h2></div><p>Votre site peut présenter votre activité. Il peut aussi vous aider à la gérer.</p></div><div className="services-grid">{offers.map(({icon:Icon,...o})=><article className="service-card" key={o.n}><div className="card-top"><span className="offer-icon"><Icon size={25} aria-hidden="true"/></span><span>{o.n}</span></div><h3>{o.title}</h3><p>{o.description}</p><p className="offer-example">{o.example}</p></article>)}</div></section>
+ <section id="situations" className="section situations-section"><div className="container situations-layout"><div><p className="eyebrow">02 / VOTRE QUOTIDIEN</p><h2>Vous vous reconnaissez dans l’une de ces situations ?</h2><p>Souvent, un outil web simple suffit. Le but est d’enlever les étapes inutiles, pas d’ajouter de la complexité.</p><ButtonLink href="#contact" secondary>Parlons de votre situation</ButtonLink></div><ul>{situations.map(s=><li key={s}><span><Check size={17} aria-hidden="true"/></span>{s}</li>)}</ul></div></section>
+ <section id="approche" className="container section difference"><div><p className="eyebrow">03 / PLUS QU’UNE VITRINE</p><h2>Votre site peut aussi faire le premier travail.</h2><p>Un formulaire bien pensé recueille les informations utiles avant même votre premier échange. Une réservation évite les allers-retours. Un espace client rend le suivi plus simple.</p><p>Je construis ce qui se voit et ce qui fonctionne derrière, selon votre métier.</p></div><Example/></section>
+ <section id="methode" className="section method-section"><div className="container"><div className="section-title"><div><p className="eyebrow">04 / MÉTHODE</p><h2>Un projet, étape par étape.</h2></div></div><div className="method-grid">{steps.map(([n,title,description])=><article key={n}><span>{n}</span><h3>{title}</h3><p>{description}</p></article>)}</div><p className="method-after">Je peux aussi vous accompagner ensuite pour la maintenance et les évolutions.</p></div></section>
+ <section className="container section why"><div className="section-title"><div><p className="eyebrow">05 / POURQUOI TRAVAILLER AVEC MOI</p><h2>Une solution à votre mesure.</h2></div></div><div className="why-grid">{strengths.map(([title,description])=><article key={title}><Sparkles size={21} aria-hidden="true"/><h3>{title}</h3><p>{description}</p></article>)}</div></section>
+ <section id="a-propos" className="section about-section"><div className="container about"><div><p className="eyebrow">06 / À PROPOS</p><h2>Bonjour,<br/>moi c’est Othman<span>.</span></h2><p className="location">Basé à Toulouse · Projets partout en France</p></div><div><p className="about-lead">Je travaille directement avec les petites entreprises pour créer des solutions web adaptées à leur façon de fonctionner.</p><p>Ingénieur en sciences du numérique, je peux réaliser votre site, puis développer les fonctions utiles derrière : prise de rendez-vous, espace client, suivi ou automatisation. Un seul interlocuteur, de l’idée à la mise en ligne.</p></div></div></section>
+ <section id="technologies" className="container technical"><div><p className="eyebrow">07 / UNE BASE TECHNIQUE SOLIDE</p><h2>La simplicité devant. Le savoir-faire derrière.</h2><p>Je m’appuie sur des outils éprouvés pour construire des solutions fiables et faciles à faire évoluer.</p></div><div className="tech-list"><span>Next.js</span><span>React</span><span>TypeScript</span><span>Node.js</span><span>PostgreSQL</span><span>Docker</span></div></section>
+ <section className="container final-cta"><div><p className="eyebrow">ON EN PARLE ?</p><h2>Vous avez un besoin en tête ?</h2><p>Expliquez-moi votre activité et ce que vous aimeriez améliorer. Nous verrons ensemble ce qui est utile.</p></div><ButtonLink href="#contact">Discuter de mon projet</ButtonLink></section>
+ <section id="contact" className="container section contact"><div><p className="eyebrow">08 / CONTACT</p><h2>Racontez-moi votre besoin.</h2><p>Pas besoin de cahier des charges. Dites-moi simplement comment vous travaillez aujourd’hui.</p><div className="contact-links">{site.email?<a href={'mailto:'+site.email}><MessageSquareText size={19}/> M’écrire directement</a>:<p className="contact-placeholder">[EMAIL À RENSEIGNER]</p>}</div></div><ContactForm/></section>
+ </main>}

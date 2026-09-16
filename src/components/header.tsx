@@ -3,12 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Brand, ButtonLink } from "./ui";
 const links = [
-  ["Accueil", "accueil"],
-  ["Services", "services"],
-  ["Réalisations", "realisations"],
-  ["À propos", "a-propos"],
-  ["Technologies", "technologies"],
-  ["Contact", "contact"],
+  ["Accueil", "accueil"], ["Services", "services"], ["Situations", "situations"],
+  ["Méthode", "methode"], ["À propos", "a-propos"], ["Contact", "contact"],
 ];
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -49,7 +45,7 @@ export function Header() {
           ))}
         </nav>
         <div className="header-cta">
-          <ButtonLink href="/#contact">Discuter de votre projet</ButtonLink>
+          <ButtonLink href="/#contact">Parler de votre projet</ButtonLink>
         </div>
       </div>
     </header>

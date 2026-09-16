@@ -28,12 +28,6 @@ export default function Legal() {
           </div>
         ))}
       </dl>
-      <h2>Contenus</h2>
-      <p>
-        Les réalisations présentent les contributions d’Othman Ait Ouakrim. Les
-        noms des projets et organisations identifient leur contexte ; ils ne
-        constituent pas un témoignage client ni une recommandation commerciale.
-      </p>
       <h2>Données personnelles</h2>
       <p>
         Consultez la <a href="/confidentialite">politique de confidentialité</a>{" "}
